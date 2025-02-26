@@ -10,3 +10,11 @@ Separating the SVG rendering to the backend was necessary to allow PixiJS's Asse
 
 ### Run
 `npm start`
+
+#### Reference
+Quick-reference for TeX syntax here:
+https://www.math.brown.edu/johsilve/ReferenceCards/TeXRefCard.v1.5.pdf
+
+Deeper reference on CTAN
+https://mirrors.rit.edu/CTAN/info/impatient/book.pdf
+https://ctan.org/pkg/impatient
