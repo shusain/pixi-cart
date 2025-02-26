@@ -29,7 +29,7 @@ async function init ()
             functionsToDraw: [
                 {
                     functionToDraw: (x) => Math.sin(x),
-                    label: "sin(x)"
+                    label: "f(x)\\; = \\sin(x)"
                 }
             ],
             xTickType:TICK_TYPES.radians,
@@ -48,7 +48,7 @@ async function init ()
             functionsToDraw: [
                 {
                     functionToDraw: (x) => Math.cos(x),
-                    label: "cos(x)"
+                    label: `f(x)\\; = \\cos(x)`
                 }
             ],
             xTickType:TICK_TYPES.radians,
@@ -68,20 +68,20 @@ async function init ()
             functionsToDraw: [
                 {
                     functionToDraw: (x) => Math.abs(x),
-                    label: "abs(x)"
+                    label: "f(x)\\; = |x|"
                 },
                 {
                     functionToDraw: (x) => -Math.abs(x),
-                    label: "abs(x)"
+                    label: "-|x|"
                 },
                 {
                     functionToDraw: (x) => 1.5*x+Math.sin(x),
-                    label: "sin(x)",
+                    label: `\sin(x)`,
                     color: 0xff0000
                 },
                 {
                     functionToDraw: (x) => Math.cos(x),
-                    label: "cos(x)",
+                    label: `\cos(x)`,
                     color: 0x0000ff
                 }
             ],
@@ -104,7 +104,7 @@ async function init ()
             functionsToDraw: [
                 {
                     functionToDraw: (x) => 2*Math.pow(x-1,2)+2,
-                    label: "f(x) = 2 * (x-1)^2 + 2"
+                    label: "f(x)\\; = 2 * (x-1)^2 + 2"
                 }
             ],
             given_y_unit_to_px_size: 40

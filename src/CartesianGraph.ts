@@ -1,29 +1,5 @@
 import { Assets, ColorSource, Container, FillInput, Graphics, Sprite, Text } from "pixi.js";
-import { mathjax } from 'mathjax-full/js/mathjax'
-import { TeX } from 'mathjax-full/js/input/tex'
-import { SVG } from 'mathjax-full/js/output/svg'
-import { AllPackages } from 'mathjax-full/js/input/tex/AllPackages'
-import { liteAdaptor } from 'mathjax-full/js/adaptors/liteAdaptor'
-import { RegisterHTMLHandler } from 'mathjax-full/js/handlers/html'
 
-const adaptor = liteAdaptor()
-RegisterHTMLHandler(adaptor)
-
-const mathjax_document = mathjax.document('', {
-    InputJax: new TeX({ packages: AllPackages }),
-    OutputJax: new SVG({ fontCache: 'none' })
-})
-
-const mathjax_options = {
-    em: 4,
-    ex: 8,
-    containerWidth: 320
-}
-
-export function get_mathjax_svg(math: string): string {
-    const node = mathjax_document.convert(math, mathjax_options)
-    return adaptor.innerHTML(node)
-}
 
 export enum TICK_TYPES {
     numeric, // Integers, floats etc.
@@ -132,13 +108,6 @@ export default class CartesianGraph extends Container {
         // let graphedFunctionTitle = new Graphics().svg(htmlNOde.children[0].outerHTML)
 
 
-        let svgString = get_mathjax_svg(this.opts.functionsToDraw[0].label).replaceAll('currentColor', 'black')
-        let svgElem = document.createElement('svg')
-        svgElem.innerHTML = svgString
-        svgElem.setAttribute('width', "200")
-        svgElem.setAttribute('height', "20")
-        console.log(svgElem.outerHTML)
-        document.body.appendChild(svgElem)
         // let graphedFunctionTitle = new Graphics().svg(svgElem.outerHTML)
 
 
@@ -149,11 +118,19 @@ export default class CartesianGraph extends Container {
         this.init()
     }
 
-    private async init(){
-        
-        const svgTexture = await Assets.load('http://localhost:8000/test.svg');
-        
+    private async init() {
+        let encodedFunc = encodeURIComponent(this.opts.functionsToDraw[0].label)
+        let svgTexture = await Assets.load({
+            src: `http://localhost:3000/tex2svg.svg?tex=${encodedFunc}`,
+            data: {
+                resolution: 2
+            }
+        })
+
         const mySprite = new Sprite(svgTexture);
+        mySprite.y = 10
+        mySprite.x = 10
+        mySprite.scale = 1.5
         this.addChild(mySprite)
     }
 
