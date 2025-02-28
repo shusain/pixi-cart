@@ -26,7 +26,7 @@ export function get_mathjax_svg(math: string): string {
   return adaptor.innerHTML(node)
 }
 
-console.log(get_mathjax_svg('\\frac{a}{1-a^2}'))
+// console.log(get_mathjax_svg('\\frac{a}{1-a^2}'))
 
 
 const app = express()
@@ -38,8 +38,10 @@ app.get('/tex2svg.svg', (req, res) => {
   res.setHeader('Content-Type', 'image/svg+xml')
   let svgString = get_mathjax_svg(req.query.tex as string)
   // console.log(svgString)
-  console.log(svgString.replaceAll("currentColor","blue"))
-  res.send(svgString.replaceAll("currentColor","blue"))
+  let color = req?.query?.color as string || "blue"
+
+  console.log(svgString.replaceAll("currentColor", color))
+  res.send(svgString.replaceAll("currentColor", color))
 })
 
 app.listen(port, () => {

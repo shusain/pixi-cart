@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "source": "src/index.html",
   "scripts": {
-    "preinstall": "npm install --prefix ./mathjax-bff",
+    "preinstall": "cd mathjax-bff && npm install",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "run-p start-parcel start-mathjax-bff",
     "build": "parcel build",

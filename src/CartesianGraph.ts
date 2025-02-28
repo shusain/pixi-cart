@@ -1,4 +1,4 @@
-import { Assets, ColorSource, Container, FillInput, Graphics, Sprite, Text } from "pixi.js";
+import { Assets, ColorSource, Container, FillInput, Graphics, Sprite, Text, Texture } from "pixi.js";
 
 
 export enum TICK_TYPES {
@@ -119,19 +119,35 @@ export default class CartesianGraph extends Container {
     }
 
     private async init() {
-        let encodedFunc = encodeURIComponent(this.opts.functionsToDraw[0].label)
-        let svgTexture = await Assets.load({
-            src: `http://localhost:3000/tex2svg.svg?tex=${encodedFunc}`,
-            data: {
-                resolution: 2
-            }
-        })
+        const FUNC_LABEL_HEIGHT = 40
+        const VISUAL_SCALE = 1.5
+        for (let i = 0; i < this.opts.functionsToDraw.length; i++) {
+            const funcToDraw = this.opts.functionsToDraw[i];
+            
+            let encodedFunc = encodeURIComponent(funcToDraw.label)
 
-        const mySprite = new Sprite(svgTexture);
-        mySprite.y = 10
-        mySprite.x = 10
-        mySprite.scale = 1.5
-        this.addChild(mySprite)
+            let funcColor = encodeURIComponent(funcToDraw?.color as string) || "black"
+            console.info(funcColor)
+            let svgTexture:Texture = await Assets.load({
+                src: `http://localhost:3000/tex2svg.svg?tex=${encodedFunc}&color=${funcColor}`,
+                data: {
+                    resolution: 2
+                }
+            })
+
+            const funcLabelBG = new Graphics()
+            funcLabelBG.y = 5 + i*FUNC_LABEL_HEIGHT
+            funcLabelBG.x = 10
+            funcLabelBG.rect(0,0, svgTexture.width*VISUAL_SCALE, FUNC_LABEL_HEIGHT - 5 )
+            funcLabelBG.fill("#00000033")
+            this.addChild(funcLabelBG)
+
+            const mySprite = new Sprite(svgTexture);
+            mySprite.y = 10 + i*FUNC_LABEL_HEIGHT
+            mySprite.x = 10
+            mySprite.scale = VISUAL_SCALE
+            this.addChild(mySprite)
+        }
     }
 
     private uToPx(units: number) { return units * this.unit_to_px_size }
@@ -317,7 +333,7 @@ export default class CartesianGraph extends Container {
 
             for (let i = 0; i < functionInfo.computedPoints!.length; i++) {
                 const point = functionInfo.computedPoints![i];
-                const xScreenPos = middleX + this.uToPx(point.x)
+                const xScreenPos = middleX + this.uToPx(point.x);
                 const yScreenPos = middleY - this.uToPxy(point.y);
 
                 if (xScreenPos >= 0 && xScreenPos <= this.opts.requestedWidth && yScreenPos >= 0 && yScreenPos <= this.opts.requestedHeight)
@@ -331,7 +347,7 @@ export default class CartesianGraph extends Container {
                     }
             }
 
-            let chosenColor: ColorSource = 0x00ff00;
+            let chosenColor: ColorSource = '#000000';
 
             if (functionInfo.color)
                 chosenColor = functionInfo.color

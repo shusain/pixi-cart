@@ -29,7 +29,8 @@ async function init ()
             functionsToDraw: [
                 {
                     functionToDraw: (x) => Math.sin(x),
-                    label: "f(x)\\; = \\sin(x)"
+                    label: "f(x)\\; = \\sin(x)",
+                    color: "blue"
                 }
             ],
             xTickType:TICK_TYPES.radians,
@@ -68,7 +69,8 @@ async function init ()
             functionsToDraw: [
                 {
                     functionToDraw: (x) => Math.abs(x),
-                    label: "f(x)\\; = |x|"
+                    label: "f(x)\\; = |x|",
+                    color: "#00ff00"
                 },
                 {
                     functionToDraw: (x) => -Math.abs(x),
@@ -76,13 +78,13 @@ async function init ()
                 },
                 {
                     functionToDraw: (x) => 1.5*x+Math.sin(x),
-                    label: `\sin(x)`,
-                    color: 0xff0000
+                    label: `1.5 \\times x+sin(x)`,
+                    color: '#ff0000'
                 },
                 {
                     functionToDraw: (x) => Math.cos(x),
                     label: `\cos(x)`,
-                    color: 0x0000ff
+                    color: '#0000ff'
                 }
             ],
             includeMinorYTickLabels: true
