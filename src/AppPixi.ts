@@ -3,9 +3,6 @@ import CartesianGraph, { TICK_TYPES } from './CartesianGraph';
 
 async function init ()
 {
-    window.addEventListener('keydown', (event)=>{ console.log(event)})
-    window.addEventListener('keyup', (event)=>{ console.log(event)})
-
     // Create a new application
     const app = new Application();
 
@@ -31,6 +28,11 @@ async function init ()
                     functionToDraw: (x) => Math.sin(x),
                     label: "f(x)\\; = \\sin(x)",
                     color: "blue"
+                },
+                {
+                    functionToDraw: (x) => Math.cos(x),
+                    label: "f(x)\\; = \\cos(x)",
+                    color: "green"
                 }
             ],
             xTickType:TICK_TYPES.radians,
@@ -44,15 +46,19 @@ async function init ()
         {
             requestedWidth: 500,
             requestedHeight: 500,
-            minX: -2*Math.PI,
-            maxX: 2*Math.PI,
+            minX: -10,
+            maxX: 10,
             functionsToDraw: [
                 {
-                    functionToDraw: (x) => Math.cos(x),
-                    label: `f(x)\\; = \\cos(x)`
+                    functionToDraw: (x) => {
+                        let m = 1.5 //slope
+                        let b = 2   // y-intercept
+                        return m*x + b;
+                    },
+                    label: `f(x)\\; = mx + b; m = 1.5; b = 2;`
                 }
             ],
-            xTickType:TICK_TYPES.radians,
+            xTickType:TICK_TYPES.numeric,
             includeMinorYTickLabels: true
         }
     )
@@ -70,20 +76,20 @@ async function init ()
                 {
                     functionToDraw: (x) => Math.abs(x),
                     label: "f(x)\\; = |x|",
-                    color: "#00ff00"
+                    color: "#aa00aa"
                 },
                 {
                     functionToDraw: (x) => -Math.abs(x),
-                    label: "-|x|"
+                    label: "f(x) = -|x|"
                 },
                 {
                     functionToDraw: (x) => 1.5*x+Math.sin(x),
-                    label: `1.5 \\times x+sin(x)`,
+                    label: `f(x) = 1.5x + \\sin(x)`,
                     color: '#ff0000'
                 },
                 {
                     functionToDraw: (x) => Math.cos(x),
-                    label: `\cos(x)`,
+                    label: `f(x) = \\cos(x)`,
                     color: '#0000ff'
                 }
             ],

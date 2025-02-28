@@ -136,14 +136,14 @@ export default class CartesianGraph extends Container {
             })
 
             const funcLabelBG = new Graphics()
-            funcLabelBG.y = 5 + i*FUNC_LABEL_HEIGHT
+            funcLabelBG.y = Math.floor(5 + i*FUNC_LABEL_HEIGHT)
             funcLabelBG.x = 10
             funcLabelBG.rect(0,0, svgTexture.width*VISUAL_SCALE, FUNC_LABEL_HEIGHT - 5 )
             funcLabelBG.fill("#00000033")
             this.addChild(funcLabelBG)
 
             const mySprite = new Sprite(svgTexture);
-            mySprite.y = 10 + i*FUNC_LABEL_HEIGHT
+            mySprite.y = Math.floor(10 + i*FUNC_LABEL_HEIGHT)
             mySprite.x = 10
             mySprite.scale = VISUAL_SCALE
             this.addChild(mySprite)

@@ -36,11 +36,12 @@ app.use(cors())
 
 app.get('/tex2svg.svg', (req, res) => {
   res.setHeader('Content-Type', 'image/svg+xml')
+  console.log(`Rendering new SVG for: ${req.query.tex}`)
   let svgString = get_mathjax_svg(req.query.tex as string)
   // console.log(svgString)
+  // console.log(svgString.replaceAll("currentColor", color))
   let color = req?.query?.color as string || "blue"
 
-  console.log(svgString.replaceAll("currentColor", color))
   res.send(svgString.replaceAll("currentColor", color))
 })
 
